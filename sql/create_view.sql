@@ -18,7 +18,7 @@ JOIN payments p
 
 CREATE OR REPLACE VIEW vw_customer_analysis AS
 SELECT
-    c.customer_id,
+    c.customer_unique_id,
     c.customer_state,
 
     COUNT(DISTINCT o.order_id) AS total_orders,
@@ -37,7 +37,7 @@ JOIN payments p
     ON o.order_id = p.order_id
 
 GROUP BY
-    c.customer_id,
+    c.customer_unique_id,
     c.customer_state;
 
 -- ============================================
@@ -139,11 +139,10 @@ LEFT JOIN category_translation ct
 
 CREATE OR REPLACE VIEW vw_sales_full AS
 SELECT
-
     o.order_id,
-
     o.order_purchase_timestamp,
 
+    c.customer_unique_id,
     c.customer_state,
 
     s.seller_state,
@@ -154,10 +153,7 @@ SELECT
     ) AS category_name,
 
     oi.price,
-
-    oi.freight_value,
-
-    r.review_score
+    oi.freight_value
 
 FROM orders o
 
@@ -175,7 +171,4 @@ JOIN products p
 
 LEFT JOIN category_translation ct
     ON p.product_category_name =
-       ct.product_category_name
-
-LEFT JOIN reviews r
-    ON o.order_id = r.order_id;
+       ct.product_category_name;
