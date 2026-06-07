@@ -17,3 +17,7 @@ engine = create_engine(
 
 with engine.connect() as conn:
     print("Connected successfully!")
+    
+    
+def get_engine():
+    return engine
