@@ -10,11 +10,11 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # 1. ĐỌC DỮ LIỆU ĐÃ LÀM SẠCH (Đã sửa lại đường dẫn đúng)
 print("Đang tải dữ liệu...")
-order_items = pd.read_csv("../data/clean/order_items_clean.csv")
-orders = pd.read_csv("../data/clean/orders_clean.csv")
-products = pd.read_csv("../data/clean/products_clean.csv")
-customers = pd.read_csv("../data/clean/customers_clean.csv")
-sellers = pd.read_csv("../data/clean/sellers_clean.csv")
+order_items = pd.read_csv("data/clean/order_items_clean.csv")
+orders = pd.read_csv("data/clean/orders_clean.csv")
+products = pd.read_csv("data/clean/products_clean.csv")
+customers = pd.read_csv("data/clean/customers_clean.csv")
+sellers = pd.read_csv("data/clean/sellers_clean.csv")
 
 # 2. GỘP CÁC BẢNG DỮ LIỆU (MERGE DATA)
 print("Đang gộp các bảng dữ liệu...")
