@@ -136,10 +136,11 @@ LEFT JOIN category_translation ct
 -- ============================================
 -- View tổng hợp cho Power BI
 -- ============================================
-
 CREATE OR REPLACE VIEW vw_sales_full AS
 SELECT
+
     o.order_id,
+
     o.order_purchase_timestamp,
 
     c.customer_unique_id,
@@ -153,7 +154,15 @@ SELECT
     ) AS category_name,
 
     oi.price,
-    oi.freight_value
+    oi.freight_value,
+
+    (
+        o.order_delivered_customer_date::date
+        -
+        o.order_purchase_timestamp::date
+    ) AS delivery_days,
+
+    r.review_score
 
 FROM orders o
 
@@ -171,4 +180,9 @@ JOIN products p
 
 LEFT JOIN category_translation ct
     ON p.product_category_name =
-       ct.product_category_name;
+       ct.product_category_name
+
+LEFT JOIN reviews r
+    ON o.order_id = r.order_id
+
+WHERE o.order_delivered_customer_date IS NOT NULL;
